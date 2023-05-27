@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="Catalogo">
+    <select id="getAllCatalogo" resultType="modelo.pojos.CatalogoConcepto" statementType="CALLABLE">
+        {CALL ganaderia.sp_getAllCatalogoConcepto()}
+    </select>
+    
+    <select id="getCatalogoById" resultType="modelo.pojos.CatalogoConcepto" statementType="CALLABLE">
+        {CALL ganaderia.sp_getCatalogoById(
+        #{catalogo,jdbcType=VARCHAR,mode=IN})}
+    </select>
+    
+    <select id="getAllIngresoActivo" resultType="modelo.pojos.CatalogoConcepto" statementType="CALLABLE">
+        {call ganaderia.sp_getAllCatalogo_ingreso()}
+    </select>
+    
+    <select id="getAllEgresoActivo" resultType="modelo.pojos.CatalogoConcepto" statementType="CALLABLE">
+        {CALL ganaderia.sp_getAllEgreso_activo()}
+    </select>
+    
+    <select id="catalogoId" resultType="map" statementType="CALLABLE">
+        {CALL ganaderia.sp_catalogoId(
+        #{concepto,jdbcType=VARCHAR,mode=IN},
+        #{catalogo,jdbcType=VARCHAR,mode=IN})}
+    </select>
+    
+    <insert id="registrarCatalogo" parameterType="map" statementType="CALLABLE">
+        {CALL ganaderia.sp_registrarCatalogoConcepto(
+        #{catalogo,jdbcType=VARCHAR,mode=IN},
+        #{concepto,jdbcType=VARCHAR,mode=IN})}
+    </insert>
+    
+    <update id="actualizarCatalogo" parameterType="map" statementType="CALLABLE">
+        {CALL ganaderia.sp_actualizarCatalogoConcepto(
+        #{idCatalogoConcepto,jdbcType=INTEGER,mode=IN},
+        #{catalogo,jdbcType=VARCHAR,mode=IN},
+        #{concepto,jdbcType=VARCHAR,mode=IN})}
+    </update>
+    
+    <update id="eliminarCatalogo" parameterType="map" statementType="CALLABLE">
+        {CALL ganaderia.sp_eliminarCatalogoConcepto(
+        #{idCatalogoConcepto,jdbcType=INTEGER,mode=IN})}
+    </update>
+    
+    <update id="actualizarEstatus" parameterType="map" statementType="CALLABLE">
+        {CALL ganaderia.sp_actualizarEstatusCatalogo(
+        #{idCatalogoConcepto,jdbcType=INTEGER,mode=IN})}
+    </update>
+</mapper>
+
+
